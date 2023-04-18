@@ -39,7 +39,7 @@
 - 디자이너의 작업이 개발자의 비즈니스 코드에 영향을 미치지 않도록 가능
 
 - 작업순서 (딪 - 디자이너 / 갭 - 개발자)
-(딪)골격 디자인 -> (갭)비즈니스 로직 -> (딪)디자인 개선 <--> (갭)디버깅
+    - (딪)골격 디자인 -> (갭)비즈니스 로직 -> (딪)디자인 개선 <--> (갭)디버깅
 
 # WPF 프로젝트 생성
 - WPF앱(.NET Framework)
@@ -65,7 +65,7 @@ MainWindow.xaml
 
 ### 기본 컨트롤
 1. MainWindow.xaml 클릭 
-2. Grid 태그를 <StackPanel>로 변경 
+2. Grid 태그를 StackPanel로 변경 
 3. 컨트롤 코드 입력 
 4. 솔루션 빌드 
 5. 실행
@@ -73,7 +73,8 @@ MainWindow.xaml
 - Winforms : MessageBoxIcon.Error -> WPF : MessageBoxImage.Error
 - WPF는 Program.cs가 없음 / 없어도 실행 가능 => 대신 App.xaml
 
-<StackPanel>
+#### 추가한 도구
+StackPanel>
 - TextBlock
 - Label
 - PasswordBox
