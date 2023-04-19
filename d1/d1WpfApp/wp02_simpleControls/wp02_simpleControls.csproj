@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -95,10 +98,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\icon.ico" />
+    <Resource Include="texture.jpg" />
     <Resource Include="Images\texture.jpg" />
     <Resource Include="Images\icon.png" />
-    <Resource Include="Images\icon.ico" />
     <Resource Include="Images\chamo.png" />
+    <Resource Include="icon.ico" />
     <Content Include="Images\vid.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

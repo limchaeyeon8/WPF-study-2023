@@ -5,20 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wp02_simpleControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="370" Width="300">
-    <StackPanel>
-        <TextBlock Text="CHAMO" Width="100" TextAlignment="Center" FontSize="20" FontFamily="Bell MT" Foreground="Goldenrod" Margin="15"/>
-        <TextBlock Text="THE SHELL" Width="100" FontSize="10" TextAlignment="Center" FontFamily="Arial" Foreground="Goldenrod" Margin="5"/>
-        <Label Content="CENTELLA ASIATICA EXTRACT" Width="100" HorizontalContentAlignment="Center" FontSize="6" Foreground="Goldenrod" FontFamily="Arial"/>
-        <Label Content="PERFUME HAND" Width="100" HorizontalContentAlignment="Center" FontSize="6" FontFamily="Arial" Foreground="Goldenrod"/>
-        <PasswordBox Password="TAMBURINS" Foreground="Goldenrod" Width="120" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="5"/>
-        
-        <Image Source=".\Images\chamo.png" Width ="50" Height="40" />
-        
-        <Slider x:Name="SldStep" Value="0" Width="100" Margin="2" ValueChanged="SldStep_ValueChanged"/>
-        <ProgressBar x:Name="PgbStep" Value="0" Maximum="10" Width="100" Height="12" Background="Beige" Margin="3"/>
+        Title="TAMBURINS" Height="430" Width="320">
+    <Window.Background>
+        <ImageBrush ImageSource="/texture.jpg"/>
+    </Window.Background>
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="CHAMO" Width="100" TextAlignment="Center" FontSize="20" FontFamily="Bell MT" Foreground="Goldenrod" Margin="25"/>
+            <TextBlock Text="THE SHELL" Width="100" FontSize="10" TextAlignment="Center" FontFamily="Arial" Foreground="Goldenrod" Margin="5"/>
+            <Label Content="CENTELLA ASIATICA EXTRACT" Width="100" HorizontalContentAlignment="Center" FontSize="6" Foreground="Goldenrod" FontFamily="Arial"/>
+            <Label Content="PERFUME HAND" Width="100" HorizontalContentAlignment="Center" FontSize="6" FontFamily="Arial" Foreground="Goldenrod"/>
 
-        <MediaElement x:Name="MediaMain" Source=".\Images\vid.mp4" Width="160" Height="100" Margin="10"
-                      />
-    </StackPanel>
+            <Image Source=".\Images\chamo.png" Width ="90" Height="60" />
+
+            <PasswordBox Password="TAMBURINS" Foreground="#FFAD9965" Width="120" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Background="{x:Null}" BorderBrush="{x:Null}" AutomationProperties.AccessKey=""/>
+
+            <MediaElement x:Name="MediaMain" Source=".\Images\vid.mp4" Width="160" Height="100" Margin="10"/>
+
+            <Slider x:Name="SldStep" Value="0" Width="100" Margin="3" ValueChanged="SldStep_ValueChanged" Background="Transparent"/>
+            <ProgressBar x:Name="PgbStep" Value="0" Maximum="10" Width="100" Height="12" Background="#FFD8D09C" Margin="3"/>
+        </StackPanel>
+    </Grid>
 </Window>
