@@ -10,22 +10,36 @@
         <StackPanel.Background>
             <ImageBrush ImageSource="/texture.jpg"/>
         </StackPanel.Background>
-        <Button x:Name="BtnOk" Content="Normal" Width="90" Height="30" Margin="0, 30, 0, 10" Background="#FFAF9777" FontSize="13" FontFamily="나눔고딕" Foreground="BurlyWood"/>
-        <ToggleButton x:Name="BtnToggle" Content="오프상태" Width="90" Height="30" Margin="0, 0, 0, 20" Background="#FFAF9777" FontSize="13" FontFamily="나눔고딕" Foreground="BurlyWood"/>
+        <Button x:Name="BtnOk" Content="Normal" Width="90" Height="30" Margin="0, 30, 0, 10" 
+                Background="#FFAF9777" FontSize="13" FontFamily="나눔고딕" Foreground="BurlyWood"/>
+        <ToggleButton x:Name="BtnToggle" Content="오프상태" Width="90" Height="30" Margin="0, 0, 0, 20" 
+                      Background="#FFAF9777" FontSize="13" FontFamily="나눔고딕" Foreground="BurlyWood"/>
 
-        <CheckBox x:Name="ChkFruitStrawberry" Content="딸기" Width="50" FontSize="10" FontFamily="한컴 말랑말랑" Foreground="MistyRose" HorizontalContentAlignment="Center"/>
-        <CheckBox x:Name="ChkFruitMango" Content="망고" Width="50" FontSize="10" FontFamily="한컴 말랑말랑" Foreground="Beige" HorizontalContentAlignment="Center"/>
-        <CheckBox x:Name="ChkFruitCherry" Content="체리" Width="50" FontSize="10" FontFamily="한컴 말랑말랑" Foreground="RosyBrown" HorizontalContentAlignment="Center" Margin="0, 0, 0, 15"/>
+        <CheckBox x:Name="ChkFruitStrawberry" Content="딸기" Width="50" 
+                  FontSize="10" FontFamily="한컴 말랑말랑" Foreground="MistyRose" 
+                  HorizontalContentAlignment="Center"/>
+        <CheckBox x:Name="ChkFruitMango" Content="망고" Width="50" 
+                  FontSize="10" FontFamily="한컴 말랑말랑" Foreground="Beige" 
+                  HorizontalContentAlignment="Center"/>
+        <CheckBox x:Name="ChkFruitCherry" Content="체리" Width="50" 
+                  FontSize="10" FontFamily="한컴 말랑말랑" Foreground="RosyBrown" 
+                  HorizontalContentAlignment="Center" Margin="0, 0, 0, 15"/>
 
-        <RadioButton x:Name="RdoFem" Content="Fem" IsChecked="True" Width="50" Margin="2" FontFamily="Century" Foreground="Beige" HorizontalContentAlignment="Center"/>
-        <RadioButton x:Name="RdoMale" Content="Male" Width="50" Margin="2" FontFamily="Century" Foreground="Beige" HorizontalContentAlignment="Center"/>
-        <RadioButton x:Name="RdoBi" Content="Bi" Width="50" Margin="2" FontFamily="Century" Foreground="Beige" HorizontalContentAlignment="Center"/>
+        <RadioButton x:Name="RdoFem" Content="Fem" IsChecked="True" Width="50" Margin="2" 
+                     FontFamily="Century" Foreground="Beige" HorizontalContentAlignment="Center"/>
+        <RadioButton x:Name="RdoMale" Content="Male" Width="50" Margin="2" 
+                     FontFamily="Century" Foreground="Beige" HorizontalContentAlignment="Center"/>
+        <RadioButton x:Name="RdoBi" Content="Bi" Width="50" Margin="2" 
+                     FontFamily="Century" Foreground="Beige" HorizontalContentAlignment="Center"/>
 
 
-        <Button x:Name="BtnMediaw" Width="200" Height="150" Margin="0, 0, 0, 5" BorderBrush="{x:Null}" Background="{x:Null}">
+        <Button x:Name="BtnMediaw" Width="200" Height="150" Margin="0, 0, 0, 5" 
+                BorderBrush="{x:Null}" Background="{x:Null}">
             <StackPanel>
                 <Image Source=".\Images\chamo.png" Width="100" />
-                <Label Content="CELECT CHAMO" VerticalAlignment="Center" FontSize="20" FontFamily="Bell MT" Foreground="FloralWhite" Background="{x:Null}"/>
+                <Label Content="CELECT CHAMO" VerticalAlignment="Center" 
+                       FontSize="20" FontFamily="Bell MT" Foreground="FloralWhite" 
+                       Background="{x:Null}"/>
             </StackPanel>
         </Button>
 
