@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wp03_controlsApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="500">
+        Title="MainWindow" Height="600" Width="500">
     <StackPanel>
         <StackPanel.Background>
             <ImageBrush ImageSource="/texture.jpg"/>
@@ -21,11 +21,6 @@
         <RadioButton x:Name="RdoMale" Content="Male" Width="50" Margin="2" FontFamily="Century" Foreground="Beige" HorizontalContentAlignment="Center"/>
         <RadioButton x:Name="RdoBi" Content="Bi" Width="50" Margin="2" FontFamily="Century" Foreground="Beige" HorizontalContentAlignment="Center"/>
 
-        <Button x:Name="BtnMediaq" Width="200" Height="100" Margin="0, 25, 0, 0">
-            <StackPanel>
-                <MediaElement Source=".\Images\vid.mp4" LoadedBehavior="Play" />
-            </StackPanel>
-        </Button>
 
         <Button x:Name="BtnMediaw" Width="200" Height="150" Margin="0, 0, 0, 5" BorderBrush="{x:Null}" Background="{x:Null}">
             <StackPanel>
