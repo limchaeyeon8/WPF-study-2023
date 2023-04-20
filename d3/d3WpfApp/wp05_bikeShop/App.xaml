@@ -1,0 +1,12 @@
+﻿<Application x:Class="wp05_bikeShop.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:wp05_bikeShop"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <!--<Button x:Key="button" Content="전송" Background="{x:Null}" Foreground="CornflowerBlue"/> -->
+        <!--<SolidColorBrush x:Key="accentBrush" Color="PeachPuff"/> -->
+
+        <ResourceDictionary Source="/BrushDictionary.xaml"/>
+    </Application.Resources>
+</Application>
