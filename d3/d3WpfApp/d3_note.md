@@ -33,7 +33,7 @@
 ```
 - 위를 바꾸면 아래도 바뀌지만 아래를 바꾸면 안 바뀜
     - 클래스 생성 파일 > Converter 메소드에서 return int.Parse(value.ToString()) + "km/h"; 
-    - >>> 위의 텍스트박스는 150, 아래의 텍스트 박스는 150km/h 로 출력됨
+    - >> 위의 텍스트박스는 150, 아래의 텍스트 박스는 150km/h 로 출력됨
 
 - 투웨이
 - public object ConvertBack - 대상값이 바뀌어서 원본(소스)의 값을 변환, 표현 ((TwoWay))
@@ -95,18 +95,20 @@ CtlCars.DataContext = cars;     // 새로 만든 콤보박스 아래에만!
 
 - 랜덤컬러
 ```cs
+ // TestPage.xaml.cs
  // 리스트박스에 바인딩하기 위한 Car 리스트
-            var cars = new List<Car>();
-            var rand = new Random();        // (+) 랜덤컬러
-            for (int i = 0; i < 10; i++)
-            {
-                
-                cars.Add(new Car()
-                {
-                    Speed = i * 10 ,
-                    Colour = Color.FromRgb((byte)rand.Next(256), (byte)rand.Next(256), (byte)rand.Next(256))
-
-                });
-                
-            }
+private void InitCar()
+{
+    var cars = new List<Car>();
+    var rand = new Random();        // (+) 랜덤컬러
+    for (int i = 0; i < 10; i++)    // 스피드: 0, 10, 20, 30, ... , 90
+    {    
+        cars.Add(new Car()
+        {
+            Speed = i * 10 ,
+            Colour = Color.FromRgb((byte)rand.Next(256), (byte)rand.Next(256), (byte)rand.Next(256))
+        });
+    }
+}
 ```
+<img src="https://raw.githubusercontent.com/limchaeyeon8/WPF-study-2023/main/d3/d3WpfApp/wp05_bikeshop/RandColLabel.png" width="400" />
