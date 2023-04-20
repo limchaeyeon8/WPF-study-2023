@@ -34,7 +34,7 @@
 ```
 - 위 텍스트 박스를 바꾸면 아래도 바뀌지만 아래를 바꾸면 안 바뀜
     - 클래스 생성 파일 > Converter 메소드에서 return int.Parse(value.ToString()) + "km/h"; 
-    - > 위의 텍스트박스는 150, 아래의 텍스트 박스는 150km/h 로 출력됨
+    - -> 위의 텍스트박스는 150, 아래의 텍스트 박스는 150km/h 로 출력됨
 
 - 투웨이
 - public object ConvertBack - 대상값이 바뀌어서 원본(소스)의 값을 변환, 표현 ((TwoWay))
