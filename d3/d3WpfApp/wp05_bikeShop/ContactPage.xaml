@@ -74,7 +74,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <!-- 리소스 사용X -->
+            
             <Button Content="취소" Margin="5" Width="70"
                      Foreground="CornflowerBlue" Background="PeachPuff"
                     Style="{StaticResource originButton}">

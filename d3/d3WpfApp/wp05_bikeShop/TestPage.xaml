@@ -79,9 +79,9 @@
             </ComboBox>
         </StackPanel>
 
-        <Grid Grid.Row="1" Grid.Column="2">
+        <Grid Grid.Row="1" Grid.Column="2" VerticalAlignment="Top">
            <!-- 그래픽 버튼 만들기 -->
-            <Button Content="눌러욖" Click="Button_Click" Margin="0, 10, 50, 10" Background="OliveDrab">
+            <Button Content="눌러욖" Click="Button_Click" Margin="0, 10, 50, 10" Background="OliveDrab" VerticalAlignment="Top">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         
@@ -97,7 +97,7 @@
                 
             </Button>
 
-            <Button Content="Press 꾺" Background="#81b5c8" Width="150" Height="80" Margin="0,228,50,32">
+            <Button Content="Press 꾺" Background="#81b5c8" Width="150" Height="80" Margin="0,100,50,0" >
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid>

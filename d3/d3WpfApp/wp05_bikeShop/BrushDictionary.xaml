@@ -8,7 +8,7 @@
     </LinearGradientBrush>
 
     <Style x:Key="niceButton" TargetType="{x:Type Button}">
-        <!-- Setter Properyt에 컨트롤의 속성이름 / Value에 거기에 쓸 실제값 입력-->
+        <!-- Setter Property에 컨트롤의 속성이름 / Value에 거기에 쓸 실제값 입력-->
         <Setter Property="Width" Value="80"/>
         <Setter Property="Height" Value="50"/>
 
@@ -16,7 +16,7 @@
             <Setter.Value>
                 <LinearGradientBrush>
                     <GradientStop Color="#a4fcd4" Offset="0"/>
-                    <GradientStop Color="#fffcd4" Offset="0"/>
+                    <GradientStop Color="#fffcd4" Offset="1"/>
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
