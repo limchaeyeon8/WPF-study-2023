@@ -46,3 +46,11 @@ BikeShopApp WIP
     - MahApps.Metro 디자인 적용
     - MVVM Pattern
     - 데이터 바인딩 DB 연동
+
+4일차 MVVM View
+
+<img src="https://raw.githubusercontent.com/limchaeyeon8/WPF-study-2023/main/d4/d4WpfApp/rm_pia.png" width="700" />
+
+## 5일차
+- WPF 활용
+    - MVVM 계속

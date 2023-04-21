@@ -11,6 +11,18 @@
         Title="Personal Information" Height="420" Width="600" 
                      WindowStartupLocation="CenterScreen" ResizeMode="NoResize" 
                      FontFamily="한컴 말랑말랑">
+    
+    <!-- 개인적으로 Icon 추가 -->
+    <mah:MetroWindow.IconTemplate>
+        
+        <DataTemplate>
+            <iconPacks:PackIconRemixIcon Kind="ContactsFill"
+                                      Margin="10,4,0,0"
+                                      Width="20" Height="20" 
+                                      Foreground="White"/>
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -176,51 +188,58 @@
 
                 
             <Label Grid.Column="1" Grid.Row="1" 
+                   
                    Content="{Binding OutLastName}" 
                    
-                   FontSize="14"
+                   FontSize="14" Background="Beige"
                    VerticalAlignment="Center"
                    Margin="10, 5, 10, 5"/>
 
             <Label Grid.Column="1" Grid.Row="2" 
+                   
                    Content="{Binding OutFirstName}" 
                    
-                   FontSize="14"
+                   FontSize="14" Background="Beige"
                    VerticalAlignment="Center"
                    Margin="10, 5, 10, 5"/>
 
             <Label Grid.Column="1" Grid.Row="3" 
+                   
                    Content="{Binding OutEmail}"  
                    
-                   FontSize="14"
+                   FontSize="14" Background="Beige"
                    VerticalAlignment="Center"
                    Margin="10, 5, 10, 5"/>
 
             <Label Grid.Column="1" Grid.Row="4" 
+                   
                    Content="{Binding OutBirth}" 
                    
-                   FontSize="14"
+                   FontSize="14" Background="Beige"
                    VerticalAlignment="Center"
                    Margin="10, 5, 10, 5"/>
 
             <Label Grid.Column="1" Grid.Row="5" 
+                   
                    Content="{Binding OutAdult}"  
                    
-                   FontSize="14"
+                   FontSize="14" Background="Beige"
                    VerticalAlignment="Center"
                    Margin="10, 5, 10, 5"/>
 
             <Label Grid.Column="1" Grid.Row="6" 
+                   
                    Content="{Binding OutBday}"  
                    
-                   FontSize="14"
+                   FontSize="14" Background="Beige"
                    VerticalAlignment="Center"
                    Margin="10, 5, 10, 5"/>
 
             <Label Grid.Column="1" Grid.Row="7" 
+                   
                    Content="{Binding OutZodiac}"  
                    
-                   FontSize="14"
+                   FontSize="14" Background="Beige"
                    VerticalAlignment="Center"
                    Margin="10, 5, 10, 5"/>
 
