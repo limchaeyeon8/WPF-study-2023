@@ -125,17 +125,16 @@ ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles
             mah:TextBoxHelper.ClearTextButton="True" />
 ```
 
-### Regular Expression; 정규표현식
-
+### 이메일 메서드 
+#### Regular Expression; 정규표현식
 - 이메일 정규표현식
-
 ```cs
+    // Commons.cs 클래스
     // Regular Expression (정규표현식)
+    // 이메일 형식에 맞게 입력하도록 체크(검증체크)
 public static bool IsValidEmail(string email)
 {
     var strPattern = @"^([0-9a-zA-Z]+)@([0-9a-zA-Z]+)(\.[0-9a-zA-Z]+){1,}$";
-
-    // 이메일 형식에 맞게 입력하도록 체크(검증체크)
     return Regex.IsMatch(email, strPattern);
 }
 ```
@@ -150,4 +149,40 @@ public static bool IsValidEmail(string email)
     - 숫자 4개가 이어짐
 
 
-### 만나이 
+### 만나이 메서드
+```cs
+        public static int GetAge(DateTime value)
+        {
+            // 입력된 날짜로 나이를 계산
+            int result;
+            if (DateTime.Now.Month < value.Month || DateTime.Now.Month < value.Month &&
+                DateTime.Now.Day < value.Day) result = DateTime.Now.Year - value.Year - 1;        // 아직 생일이 안 지남
+            else result = DateTime.Now.Year - value.Year;
+
+            return result;
+        }
+```
+
+### 띠 메서드
+```cs
+        public static string GetZodiac(DateTime value)
+        {
+            int reminder = value.Year % 12;
+            switch (reminder)
+            {
+                case 4:
+                    return "쥐띠";
+                // ~~~
+                case 11:
+                    return "양띠";
+                case 0:
+                    return "원숭이띠";
+                // ~~~
+                case 3:
+                    return "돼지띠";
+                default:
+                    return "--띠"
+            }
+
+        }
+```
