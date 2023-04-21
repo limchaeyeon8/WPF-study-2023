@@ -93,7 +93,7 @@ ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles
 
 ## Personal Info App 프로젝트 생성
 
-#### (+)
+### (+)
 - 솔루션 폴더(가상) 생성
     - 탐색기에선 보이지 않음
     - 프로젝트 관리
@@ -125,9 +125,8 @@ ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles
             mah:TextBoxHelper.ClearTextButton="True" />
 ```
 
-### 이메일 메서드 
+### 이메일 (정규표현식) 메서드 
 #### Regular Expression; 정규표현식
-- 이메일 정규표현식
 ```cs
     // Commons.cs 클래스
     // Regular Expression (정규표현식)
@@ -140,7 +139,7 @@ public static bool IsValidEmail(string email)
 ```
 
 #### (+) 핸드폰 번호 정규표현식
--``` /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/```
+- ``` /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/```
     - 시작을 숫자 01로 시작
     - 그 후에 0,1,6,7,8,9 중에 하나가 나올수도 있음
     - 하이픈 - 하나 존재할 수도 있음
