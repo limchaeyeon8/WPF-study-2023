@@ -34,7 +34,7 @@ BikeShopApp WIP
 
 
 ## 3일차
-#### [note2](https://github.com/limchaeyeon8/WPF-study-2023/blob/main/d3/d3_note.md)
+#### [note3](https://github.com/limchaeyeon8/WPF-study-2023/blob/main/d3/d3_note.md)
 
 - WPF 기초
     - 데이터 바인딩 마무리
@@ -42,6 +42,8 @@ BikeShopApp WIP
 
 
 ## 4일차
+#### [note4](https://github.com/limchaeyeon8/WPF-study-2023/blob/main/d4/d4_note.md)
+
 - WPF 활용
     - MahApps.Metro 디자인 적용
     - MVVM Pattern
