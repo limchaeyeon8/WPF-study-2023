@@ -84,14 +84,14 @@ ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles
 ### DataBinding 다이어그램
 #### 바인딩 모드
 - One Way to Source
-    - 타켓 -> 바인딩 오브젝트 -> 소스
+    - 타켓 → 바인딩 오브젝트 → 소스
 - One Way
-    - 타켓 <- 바인딩 오브젝트 <- 소스
+    - 타켓 ← 바인딩 오브젝트 ← 소스
 - Two Way
     - 타켓 ↔ 바인딩 오브젝트 ↔ 소스
 
 
-## Personal Info App 프로젝트 생성
+# Personal Info App 프로젝트 생성 - MVVM View
 
 ### (+)
 - 솔루션 폴더(가상) 생성
@@ -125,10 +125,10 @@ ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles
             mah:TextBoxHelper.ClearTextButton="True" />
 ```
 
+## Logics > Commons.cs
 ### 이메일 (정규표현식) 메서드 
 #### Regular Expression; 정규표현식
 ```cs
-    // Commons.cs 클래스
     // Regular Expression (정규표현식)
     // 이메일 형식에 맞게 입력하도록 체크(검증체크)
 public static bool IsValidEmail(string email)
@@ -185,3 +185,58 @@ public static bool IsValidEmail(string email)
 
         }
 ```
+
+
+## Models > Person.cs
+
+```cs
+internal class Person
+    {
+        // 외부에서 접근 불가
+        //private string firstName;                     // 오토프로퍼티면 지워도 됨
+        //private string lastName;
+        private string email;
+        private DateTime date;
+
+        // 필드 캡슐화
+        public string FirstName { get; set; }           // 오토프로퍼티
+        public string LastName { get; set; }            // 오토프로퍼티
+```
+- 이메일 형식에 일치하지 않은 이메일 입력 시 예외처리
+```cs
+public string Email 
+        { 
+            get => email;
+            set
+            {
+                if (Commons.IsValidEmail(value) != true)// 이메일 형식에 일치X
+                {
+                    throw new Exception("유효하지 않은 이메일 형식");
+                }
+                else
+                {
+                    email = value;
+                }
+            }
+        }
+```
+- 정상 나이 범위에서 벗어나는 생일 입력 시 예외 처리
+```cs
+        public DateTime Date 
+        { 
+            get => date; 
+            set
+            {
+                var result = Commons.GetAge(value);
+                if (result > 130 || result <= 0)
+                {
+                    throw new Exception("유효하지 않은 생일");
+                }
+                else
+                {
+                    date = value;
+                }
+            }
+        }
+```
+
