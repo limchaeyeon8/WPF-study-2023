@@ -72,4 +72,4 @@ BikeShopApp WIP
         - Newtonsoft.Json
 
 6일차 영화검색앱 WIP
-<img src="https://raw.githubusercontent.com/limchaeyeon8/WPF-study-2023/main/d6/d6WpfApp/cap.png" width="700" />
+<img src="https://raw.githubusercontent.com/limchaeyeon8/WPF-study-2023/main/d6/d6WpfApp/wp11_movieFinder/cap.png" width="700" />
