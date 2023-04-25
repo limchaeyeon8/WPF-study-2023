@@ -60,3 +60,16 @@ BikeShopApp WIP
     - MVVM 패턴
     - MVVM framework / Cliburn
     - 데터바인딩 DB 연동
+
+## 6일차
+#### [note6](https://github.com/limchaeyeon8/WPF-study-2023/blob/main/d6/d6_note.md)
+
+- WPF 응용
+    - 영화 API 검색앱
+        - TMDB OpenAPI
+        - MahApps.Metro
+        - MahApps.Metro.IconPacks
+        - Newtonsoft.Json
+
+6일차 영화검색앱 WIP
+<img src="https://raw.githubusercontent.com/limchaeyeon8/WPF-study-2023/main/d6/d6WpfApp/cap.png" width="700" />
