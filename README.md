@@ -53,6 +53,7 @@ BikeShopApp WIP
 
 <img src="https://raw.githubusercontent.com/limchaeyeon8/WPF-study-2023/main/d4/d4WpfApp/rm_pia.png" width="700" />
 
+
 ## 5일차
 #### [note5](https://github.com/limchaeyeon8/WPF-study-2023/blob/main/d5/d5_note.md)
 
@@ -60,6 +61,7 @@ BikeShopApp WIP
     - MVVM 패턴
     - MVVM framework / Cliburn
     - 데터바인딩 DB 연동
+
 
 ## 6일차
 #### [note6](https://github.com/limchaeyeon8/WPF-study-2023/blob/main/d6/d6_note.md)
@@ -74,3 +76,15 @@ BikeShopApp WIP
 6일차 영화검색앱 WIP
 
 <img src="https://raw.githubusercontent.com/limchaeyeon8/WPF-study-2023/main/d6/d6WpfApp/wp11_movieFinder/cap.png" width="700" />
+
+
+## 7일차
+- WPF 응용
+    - 영화 API 검색앱
+        - 화면정리
+        - CefSharp.Wpf 
+        - Youtube OpenAPI
+        - DB 데이터바인딩
+
+7일 영화검색앱 WIP
+
