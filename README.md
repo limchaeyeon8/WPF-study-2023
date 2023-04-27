@@ -99,4 +99,4 @@ BikeShopApp WIP
 
 영화 검색 앱
 
-<img src="https://raw.githubusercontent.com/limchaeyeon8/WPF-study-2023/main/d7/d7WpfApp/movieFinder.gif" width="400" />
+<img src="https://github.com/limchaeyeon8/WPF-study-2023/blob/main/d7/d7WpfApp/movieFInder.gif?raw=true" width="700" />
