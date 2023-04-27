@@ -1,7 +1,9 @@
 ﻿using MahApps.Metro.Controls;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
@@ -10,6 +12,7 @@ using System.Text;
 using System.Web;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using wp11_movieFinder.Logics;
@@ -139,6 +142,8 @@ namespace wp11_movieFinder
             }
 
             this.DataContext = movieItems;
+            isFavorite = false;     // 얘는 즐겨찾기 아니야~
+            StsResult.Content = $"OpenAPI {movieItems.Count} 건 조회완료";
         }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
@@ -147,27 +152,41 @@ namespace wp11_movieFinder
         }
 
         // 그리드에서 셀을 선택하면
-        private void GrdResult_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        private async void GrdResult_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             try
             {
-                var movie = GrdResult.SelectedItem as MovieItem;
+                string posterPath = string.Empty;
 
-                Debug.WriteLine(movie.Poster_Path);     // 
+                if (GrdResult.SelectedItem is MovieItem)                    // openAPI로 검색된 영화의 포스터
+                {
+                    var movie = GrdResult.SelectedItem as MovieItem;
+                    posterPath = movie.Poster_Path; 
+                }
+                else if (GrdResult.SelectedItem is FavMovieItem)            // 즐겨찾기 DB에서 가져온 영화 포스터
+                {
+                    var movie = GrdResult.SelectedItem as FavMovieItem;
+                    posterPath = movie.Poster_Path;
 
-                if (string.IsNullOrEmpty(movie.Poster_Path))        // 포스터 이미지가 없으면 No_Picture
+                }
+
+                //var movie = GrdResult.SelectedItem as MovieItem;
+
+                Debug.WriteLine(posterPath);     // 
+
+                if (string.IsNullOrEmpty(posterPath))        // 포스터 이미지가 없으면 No_Picture
                 {
                     ImgPoster.Source = new BitmapImage(new Uri("/No_Picture.png", UriKind.RelativeOrAbsolute));
                 }
                 else        // 포스터 이미지 경로가 있으면
                 {
                     var base_url = "https://image.tmdb.org/t/p/w300_and_h450_bestv2";
-                    ImgPoster.Source = new BitmapImage(new Uri($"{base_url}{movie.Poster_Path}", UriKind.RelativeOrAbsolute));
+                    ImgPoster.Source = new BitmapImage(new Uri($"{base_url}{posterPath}", UriKind.RelativeOrAbsolute));
                 }
             }
             catch
             {
-
+                await Commons.ShowMessageAsync("오류", $"이미지로드 오류발생");
             }
 
         }
@@ -188,10 +207,21 @@ namespace wp11_movieFinder
             }
 
             string movieName = string.Empty;
-            var movie = GrdResult.SelectedItem as MovieItem;
+            if (GrdResult.SelectedItem is MovieItem)
+            {
+                var movie = GrdResult.SelectedItem as MovieItem;
 
-            movieName = movie.Title;
+                movieName = movie.Title;
 
+            }
+            else if (GrdResult.SelectedItem is FavMovieItem)
+            {
+                var movie = GrdResult.SelectedItem as FavMovieItem;
+
+                movieName = movie.Title;
+            }
+
+            
             //await Commons.ShowMessageAsync("유튜브", $"예고편 볼 영화 {movieName}");
             var trailer = new Trailer(movieName);
             trailer.Owner = this;       // Trailer의 부모는 MainWindow
@@ -239,44 +269,45 @@ namespace wp11_movieFinder
             //await Commons.ShowMessageAsync("저장할 데이터 수", list.Count.ToString());
             //return;
 
-            try
+            #region < MySQL 테스트 >
+            // MySQL 데이터 입력 (테스트용)
+            /*using (MySqlConnection conn = new MySqlConnection(Commons.myConnString))
             {
-                // DB 연결 확인이 먼저
-                using (SqlConnection conn = new SqlConnection(Commons.connString))
+                try
                 {
                     if (conn.State == System.Data.ConnectionState.Closed) conn.Open();
 
                     // 
-                    var query = @"INSERT INTO  [dbo].[FavMovieItem]
-                                               ( [Id]
-                                               , [Title]
-                                               , [Original_Title]
-                                               , [Release_date]
-                                               , [Original_Language]
-                                               , [Adult]
-                                               , [Popularity]
-                                               , [Vote_Average]
-                                               , [Poster_Path]
-                                               , [OverView]
-                                               , [Reg_Date])
-                                         VALUES
-                                               ( @Id
-                                               , @Title
-                                               , @Original_Title
-                                               , @Release_date
-                                               , @Original_Language
-                                               , @Adult
-                                               , @Popularity
-                                               , @Vote_Average
-                                               , @Poster_Path
-                                               , @OverView
-                                               , @Reg_Date)";
+                    var query = @"INSERT INTO  favmovieitem
+                                            ( Id
+                                            , Title
+                                            , Original_Title
+                                            , Release_date
+                                            , Original_Language
+                                            , Adult
+                                            , Popularity
+                                            , Vote_Average
+                                            , Poster_Path
+                                            , OverView
+                                            , Reg_Date)
+                                        VALUES
+                                            ( @Id
+                                            , @Title
+                                            , @Original_Title
+                                            , @Release_date
+                                            , @Original_Language
+                                            , @Adult
+                                            , @Popularity
+                                            , @Vote_Average
+                                            , @Poster_Path
+                                            , @OverView
+                                            , @Reg_Date)";
 
 
                     var insRes = 0;
                     foreach (FavMovieItem item in list)
                     {
-                        SqlCommand cmd = new SqlCommand(query, conn);   // 여기 안에 들어가야함
+                        MySqlCommand cmd = new MySqlCommand(query, conn);   // 여기 안에 들어가야함
 
                         // 파라미터명, 아이템 속성명, 필드명 맞추면 이렇게 편함
                         //SqlParameter prmId = new SqlParameter("@Id", item.Id);
@@ -304,15 +335,206 @@ namespace wp11_movieFinder
                         await Commons.ShowMessageAsync("저장", "DB저장 오류\n 관리자에게 문의하세요♥");
                     }
 
+                }
+                catch (Exception ex)
+                {
+                    await Commons.ShowMessageAsync("오류", $"DB 저장 오류\n {ex.Message}♥");
+
+                }
+            }
+            */
+            #endregion
+
+
+            try
+            {
+                // DB 연결 확인이 먼저
+                using (SqlConnection conn = new SqlConnection(Commons.connString))
+                {
+                    if (conn.State == System.Data.ConnectionState.Closed) conn.Open();
+
+                    // 
+                    var query = @"INSERT INTO  [FavMovieItem]
+                                               ( [Id]
+                                               , [Title]
+                                               , [Original_Title]
+                                               , [Release_date]
+                                               , [Original_Language]
+                                               , [Adult]
+                                               , [Popularity]
+                                               , [Vote_Average]
+                                               , [Poster_Path]
+                                               , [OverView]
+                                               , [Reg_Date])
+                                         VALUES
+                                               ( @Id
+                                               , @Title
+                                               , @Original_Title
+                                               , @Release_date
+                                               , @Original_Language
+                                               , @Adult
+                                               , @Popularity
+                                               , @Vote_Average
+                                               , @Poster_Path
+                                               , @OverView
+                                               , @Reg_Date)";
+
+
+            var insRes = 0;
+            foreach (MovieItem item in GrdResult.SelectedItems)     // openAPI로 조회된 결과라서 MovieItem
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);   // 여기 안에 들어가야함
+
+                // 파라미터명, 아이템 속성명, 필드명 맞추면 이렇게 편함
+                //SqlParameter prmId = new SqlParameter("@Id", item.Id);
+                cmd.Parameters.AddWithValue("@Id", item.Id);
+                cmd.Parameters.AddWithValue("@Title", item.Title);
+                cmd.Parameters.AddWithValue("@Original_Title", item.Original_Title);
+                cmd.Parameters.AddWithValue("@Release_date", item.Release_date);
+                cmd.Parameters.AddWithValue("@Original_Language", item.Original_Language);
+                cmd.Parameters.AddWithValue("@Adult", item.Adult);
+                cmd.Parameters.AddWithValue("@Popularity", item.Popularity);
+                cmd.Parameters.AddWithValue("@Vote_Average", item.Vote_Average);
+                cmd.Parameters.AddWithValue("@Poster_Path", item.Poster_Path);
+                cmd.Parameters.AddWithValue("@Overview", item.OverView);
+                cmd.Parameters.AddWithValue("@Reg_Date", DateTime.Now);
+
+                insRes += cmd.ExecuteNonQuery();        // 들어간 갯수만큼 결과가 나올 것
+            }
+
+            if (list.Count == insRes)
+            {
+                await Commons.ShowMessageAsync("저장", "DB저장성공♡");
+                StsResult.Content = $"즐겨찾기 {insRes} 건 저장완료";
+
+            }
+                    else
+            {
+                await Commons.ShowMessageAsync("저장", "DB저장 오류\n 관리자에게 문의하세요♥");
+            }
+
                     //var result = cmd.ExecuteScalar();
 
                 }
             }
             catch (Exception ex)
             {
-                    await Commons.ShowMessageAsync("오류", $"DB 저장 오류\n {ex.Message}♥");
+                await Commons.ShowMessageAsync("오류", $"DB 저장 오류\n {ex.Message}♥");
 
             }
+        }
+
+        private async void BtnFav_Click(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = null;
+            TxtMovieName.Text = string.Empty;
+
+            List<FavMovieItem> list = new List<FavMovieItem>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Commons.connString))
+                {
+                    if (conn.State == ConnectionState.Closed) conn.Open();
+
+                    var query = @"SELECT Id
+                                       , Title
+                                       ,  Original_Title
+                                       ,  Release_date
+                                       ,  Original_Language
+                                       ,  Adult
+                                       ,  Popularity
+                                       ,  Vote_Average
+                                       ,  Poster_Path
+                                       ,  Overview
+                                       ,  Reg_Date
+                                    FROM FavMovieItem
+                                   ORDER BY Id ASC";
+                    var cmd = new SqlCommand(query, conn);
+                    var adapter = new SqlDataAdapter(cmd);
+                    var dSet = new DataSet();
+                    adapter.Fill(dSet, "FavMovieItem");
+
+                    foreach (DataRow dr in dSet.Tables["FavMovieItem"].Rows)
+                    {
+                        list.Add(new FavMovieItem
+                        {
+                            Id = Convert.ToInt32(dr["id"]),
+                            Title = Convert.ToString(dr["title"]),
+                            Original_Title = Convert.ToString(dr["title"]),
+                            Release_date = Convert.ToString(dr["Release_date"]),
+                            Original_Language = Convert.ToString(dr["Original_Language"]),
+                            Adult = Convert.ToBoolean(dr["Adult"]),
+                            Popularity = Convert.ToDouble(dr["Popularity"]),
+                            Poster_Path = Convert.ToString(dr["Poster_Path"]),
+                            Vote_Average = Convert.ToDouble(dr["Vote_Average"]),
+                            OverView = Convert.ToString(dr["OverView"]),
+                            Reg_Date = Convert.ToDateTime(dr["Reg_Date"])
+                        });
+                    }
+
+                    this.DataContext = list;
+                    isFavorite = true;      // 즐겨찾기에서 가져온 내용~
+                    StsResult.Content = $"즐겨찾기 {list.Count} 건 조회완료";
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                await Commons.ShowMessageAsync("오류", $"DB조회 오류\n{ex.Message} ♥");
+            }
+        }
+
+        private async void BtnDelFav_Click(object sender, RoutedEventArgs e)
+        {
+            if (isFavorite == false)
+            {
+                await Commons.ShowMessageAsync("오류", $"즐겨찾김나 삭제할 수 있습니다♥");
+                return;
+            }
+
+            if (GrdResult.SelectedItems.Count == 0) // 아무선택도 안 됨
+            {
+                await Commons.ShowMessageAsync("오류", $"삭제할 영화를 선택하세요♥");
+                return;
+            }
+
+            try   // 삭제
+            {
+                using (SqlConnection conn =  new SqlConnection(Commons.connString))
+                {
+                    if (conn.State == ConnectionState.Closed) conn.Open();
+
+                    var query = "DELETE FROM FavMovieItem WHERE Id = @Id";
+                    var delRes = 0;
+
+                    foreach (FavMovieItem item in GrdResult.SelectedItems)
+                    {
+                        SqlCommand cmd = new SqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@Id", item.Id);
+
+                        delRes += cmd.ExecuteNonQuery();
+                    }
+
+                    if (delRes == GrdResult.SelectedItems.Count)
+                    {
+                        await Commons.ShowMessageAsync("삭제", "DB삭제 성공!!!");
+                        StsResult.Content = $"즐겨찾기 {delRes} 건 삭제완료";        // 화면에 안 나옴
+
+                    }
+                    else
+                    {
+                        await Commons.ShowMessageAsync("삭제", "DB삭제 일부 성공♥!!!");  // 발생할 일이 거의 전무
+                    }
+                }
+            }
+            catch ( Exception ex )
+            {
+                await Commons.ShowMessageAsync("오류", $"DB 삭제 오류\n{ex.Message} ♥");
+
+            }
+
+            BtnFav_Click(sender, e);    // 즐겨찾기 보기 이벤트핸들러를 한 번 실행
         }
     }
 }

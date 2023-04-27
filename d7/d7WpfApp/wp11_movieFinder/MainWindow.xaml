@@ -24,6 +24,7 @@
             <RowDefinition Height="60" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="80" />
+            <RowDefinition Height="11" />
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
@@ -136,7 +137,8 @@
             <!--즐찾-->
             <Button x:Name="BtnFav" Content="즐겨찾기 보기"
                     Margin="5, 15" FontSize="12" FontFamily="한컴 말랑말랑"
-                    Style="{StaticResource MahApps.Styles.Button.Square.Highlight}">
+                    Style="{StaticResource MahApps.Styles.Button.Square.Highlight}"
+                    Click="BtnFav_Click">
                 <Button.ContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -151,7 +153,8 @@
             <!--즐찾 삭제-->
             <Button x:Name="BtnDelFav" Content="즐겨찾기 삭제"
                     Margin="5, 15" FontSize="12" FontFamily="한컴 말랑말랑"
-                    Style="{StaticResource MahApps.Styles.Button.Square}">
+                    Style="{StaticResource MahApps.Styles.Button.Square}"
+                    Click="BtnDelFav_Click">
                 <Button.ContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -195,6 +198,15 @@
             </Button>-->
 
         </StackPanel>
+
+        <!--상태표시줄-->
+        <StatusBar Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
+                   Background="MintCream" Margin="-9" Foreground="DarkOliveGreen" >
+            <StatusBarItem Content="Tmdb &amp; Youtube OpenAPI App" />
+            <!-- & => &amp; -->
+            <Separator Style="{StaticResource MahApps.Styles.Separator.StatusBar}" />
+            <StatusBarItem x:Name="StsResult"/>
+        </StatusBar>
 
     </Grid>
     

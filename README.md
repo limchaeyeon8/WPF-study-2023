@@ -80,11 +80,23 @@ BikeShopApp WIP
 
 ## 7일차
 - WPF 응용
-    - 영화 API 검색앱
+    - 영화검색앱
         - 화면정리
         - CefSharp.Wpf 
         - Youtube OpenAPI
-        - DB 데이터바인딩
+        - DB 데이터바인딩 (SQL Server)
 
 7일 영화검색앱 WIP
 
+## 8일차
+- WPF 응용
+    - 영화검색앱 
+        - DB 데이터바인딩 (MySQL)
+    - 미세먼지 확인 앱 개발
+        - MahApps.Metro
+        - 데이터포털 OpenAPI
+        - DB 데이터 바인딩 (MySQL)
+
+영화 검색 앱
+
+<img src="https://raw.githubusercontent.com/limchaeyeon8/WPF-study-2023/main/d7/d7WpfApp/movieFinder.gif" width="400" />
