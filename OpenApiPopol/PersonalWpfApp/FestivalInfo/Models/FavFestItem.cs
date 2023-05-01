@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FestivalInfo.Models
 {
-    internal class FestItem
+    public class FavFestItem
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -13,6 +17,5 @@ namespace FestivalInfo.Models
         public string CollectionDb { get; set; }
         public string ReferenceIdentifier { get; set; }     // 썸네일 이미지
         public string SubDescription { get; set; }          // 보조 서술
-
     }
 }
