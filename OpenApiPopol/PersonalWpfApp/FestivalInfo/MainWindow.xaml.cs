@@ -1,6 +1,7 @@
 ﻿using FestivalInfo.Logics;
 using FestivalInfo.Models;
 using MahApps.Metro.Controls;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Utilities;
 using System;
@@ -73,7 +74,7 @@ namespace FestivalInfo
             string openApiUri = $"http://api.kcisa.kr/openapi/service/rest/meta16/getkopis07?serviceKey={fest_apiKey}" +
                                 $"&numOfRows=100&pageNo=1";
             string result = string.Empty;   // 결과값
-
+            string xmlResult = string.Empty; 
 
             // api 실행할 객체
             WebRequest request = null;
@@ -89,7 +90,9 @@ namespace FestivalInfo
                 response = await request.GetResponseAsync();// 요청한 결과를 비동기 응답에 할당 // await ~~.GetResponseAsync() 비동기화
 
                 reader = new StreamReader(response.GetResponseStream());
-                result = reader.ReadToEnd();                // json 결과 텍스트로 저장
+                xmlResult = reader.ReadToEnd();                // json 결과 텍스트로 저장
+
+                result = Commons.XmlDocumentToJson(xmlResult);
 
                 Debug.WriteLine(result);
             }
@@ -106,11 +109,11 @@ namespace FestivalInfo
             // result를 json으로 변경
             var jsonResult = JObject.Parse(result);     // string 문자열 -> json으로 바뀜
 
-            var total = Convert.ToInt32(jsonResult["total_results"]);       // 전체 검색결과 수
+            var total = Convert.ToInt32(jsonResult["response"]["body"]["totalCount"]);      // 전체 검색결과 수
 
             //await Commons.ShowMessageAsync("검색결과", total.ToString()); 
 
-            var items = jsonResult["results"];
+            var items = jsonResult["response"]["body"]["items"]["item"];
             // items를 데이터그리드에 표시
             var json_array = items as JArray;
 
@@ -180,7 +183,7 @@ namespace FestivalInfo
 
 
 
-        // 즐겨찾기 추가 버튼
+        #region < 즐겨찾기 추가 버튼 >
         private async void BtnAddFav_Click(object sender, RoutedEventArgs e)
         {
             if (GrdResult.SelectedItems.Count == 0)
@@ -216,7 +219,7 @@ namespace FestivalInfo
             try
             {
                 // DB 연결 확인이 먼저
-                using (SqlConnection conn = new SqlConnection(Commons.myConnString))
+                using (MySqlConnection conn = new MySqlConnection(Commons.myConnString))
                 {
                     if (conn.State == System.Data.ConnectionState.Closed) conn.Open();
 
@@ -244,7 +247,7 @@ namespace FestivalInfo
                     var insRes = 0;
                     foreach (FestItem item in GrdResult.SelectedItems)     // openAPI로 조회된 결과라서 FestItem
                     {
-                        SqlCommand cmd = new SqlCommand(query, conn);   // 여기 안에 들어가야함
+                        MySqlCommand cmd = new MySqlCommand(query, conn);   // 여기 안에 들어가야함
 
                         // 파라미터명, 아이템 속성명, 필드명 맞추면 이렇게 편함
                         //SqlParameter prmId = new SqlParameter("@Id", item.Id);
@@ -279,16 +282,18 @@ namespace FestivalInfo
             }
         }
 
-        // 즐겨찾기 보기 버튼
+        #endregion
+
+        #region < 즐겨찾기 보기 버튼 >
         private async void BtnFav_Click(object sender, RoutedEventArgs e)
         {
             this.DataContext = null;
             TxtFestName.Text = string.Empty;
 
-            List<FavFestItem> list = new List<FavFestItem>();
+            List<FestItem> list = new List<FestItem>();
             try
             {
-                using (SqlConnection conn = new SqlConnection(Commons.myConnString))
+                using (MySqlConnection conn = new MySqlConnection(Commons.myConnString))
                 {
                     if (conn.State == ConnectionState.Closed) conn.Open();
 
@@ -301,16 +306,16 @@ namespace FestivalInfo
                                       , CollectionDb
                                       , ReferenceIdentifier
                                       , SubDescription
-                                   FROM festitem;
+                                   FROM festitem
                                    ORDER BY Id ASC";
-                    var cmd = new SqlCommand(query, conn);
-                    var adapter = new SqlDataAdapter(cmd);
+                    var cmd = new MySqlCommand(query, conn);
+                    var adapter = new MySqlDataAdapter(cmd);
                     var dSet = new DataSet();
                     adapter.Fill(dSet, "FavFestItem");
 
                     foreach (DataRow dr in dSet.Tables["FavFestItem"].Rows)
                     {
-                        list.Add(new FavFestItem
+                        list.Add(new FestItem
                         {
                             Id = Convert.ToInt32(dr["id"]),
                             Title = Convert.ToString(dr["title"]),
@@ -337,6 +342,9 @@ namespace FestivalInfo
             }
         }
 
+        #endregion
+
+        #region < 즐겨찾기 삭제 >
         private async void BtnDelFav_Click(object sender, RoutedEventArgs e)
         {
             if (isFavorite == false)
@@ -353,7 +361,7 @@ namespace FestivalInfo
 
             try   // 삭제
             {
-                using (SqlConnection conn = new SqlConnection(Commons.myConnString))
+                using (MySqlConnection conn = new MySqlConnection(Commons.myConnString))
                 {
                     if (conn.State == ConnectionState.Closed) conn.Open();
 
@@ -362,7 +370,7 @@ namespace FestivalInfo
 
                     foreach (FavFestItem item in GrdResult.SelectedItems)
                     {
-                        SqlCommand cmd = new SqlCommand(query, conn);
+                        MySqlCommand cmd = new MySqlCommand(query, conn);
                         cmd.Parameters.AddWithValue("@Id", item.Id);
 
                         delRes += cmd.ExecuteNonQuery();
@@ -389,6 +397,9 @@ namespace FestivalInfo
             BtnFav_Click(sender, e);    // 즐겨찾기 보기 이벤트핸들러를 한 번 실행
         }
 
+        #endregion
+
+        #region < 조회 >
         private async void BtnReqRealTime_Click(object sender, RoutedEventArgs e)
         {
             string openApiUri = "http://api.kcisa.kr/openapi/service/rest/meta16/getkopis07?serviceKey=8ca9e42a-45fe-4c84-8a06-fac2ab0682d1&numOfRows=100&pageNo=1";
@@ -451,6 +462,12 @@ namespace FestivalInfo
                 await Commons.ShowMessageAsync("오류", $"JSON 처리 오류\n{ex.Message} ♥");
 
             }
+        }
+        #endregion
+
+        private void GrdResult_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 

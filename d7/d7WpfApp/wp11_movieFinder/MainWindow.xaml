@@ -73,7 +73,7 @@
                   Style="{StaticResource MahApps.Styles.DataGrid.Azure}"
                   ItemsSource="{Binding}"
                   AutoGenerateColumns="False"
-                  SelectedCellsChanged="GrdResult_SelectedCellsChanged">      <!-- 중요 -->
+                  SelectedCellsChanged="GrdResult_SelectedCellsChanged" SelectionChanged="GrdResult_SelectionChanged">      <!-- 중요 -->
 
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Title}" Header="한글명" FontWeight="Bold"    />

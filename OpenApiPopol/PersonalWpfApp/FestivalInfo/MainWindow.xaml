@@ -46,7 +46,8 @@
 
             <DataGrid x:Name="GrdResult" 
                   Style="{StaticResource MahApps.Styles.DataGrid.Azure}"
-                  ItemsSource="{Binding}" Background="#99D8DCE0" BorderBrush="{x:Null}" Margin="20,57,20,0" Grid.RowSpan="2">
+                  ItemsSource="{Binding}" Background="#99D8DCE0" BorderBrush="{x:Null}" Margin="20,57,20,0" Grid.RowSpan="2" 
+                      MouseLeftButtonDown="GrdResult_MouseLeftButtonDown" >
 
                 <!-- 헤더 -->
                 <DataGrid.Columns>

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Newtonsoft.Json;
+using System.Xml;
 
 namespace FestivalInfo.Logics
 {
@@ -22,6 +24,13 @@ namespace FestivalInfo.Logics
             MessageDialogStyle style = MessageDialogStyle.Affirmative)
         {
             return await ((MetroWindow)Application.Current.MainWindow).ShowMessageAsync(title, message, style, null);
+        }
+
+        public static string XmlDocumentToJson(string xml)
+        {
+            var doc = new XmlDocument();
+            doc.LoadXml(xml);
+            return JsonConvert.SerializeXmlNode(doc);
         }
     }
 }
