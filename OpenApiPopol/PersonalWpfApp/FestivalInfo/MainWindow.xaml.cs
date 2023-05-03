@@ -40,15 +40,11 @@ namespace FestivalInfo
         private async void BtnSearchFest_Click(object sender, RoutedEventArgs e)
         {
             // 입력검증
-            if (string.IsNullOrEmpty(TxtFestName.Text))
-            {
-                await Commons.ShowMessageAsync("검색", "행사명을 입력하세요♥");
-                return;
-            }
+
 
             try
             {
-                await SearchFest(TxtFestName.Text);
+                await SearchFest();
             }
             catch (Exception ex)
             {
@@ -66,15 +62,15 @@ namespace FestivalInfo
         }
 
         // 실제 검색 메서드
-        private async Task SearchFest(string festName)
+        private async Task SearchFest()
         {
             string fest_apiKey = "8ca9e42a-45fe-4c84-8a06-fac2ab0682d1";
 
-            string encoding_festeName = HttpUtility.UrlEncode(festName, Encoding.UTF8);
+            ///string encoding_festeName = HttpUtility.UrlEncode(festName, Encoding.UTF8);
             string openApiUri = $"http://api.kcisa.kr/openapi/service/rest/meta16/getkopis07?serviceKey={fest_apiKey}" +
                                 $"&numOfRows=100&pageNo=1";
             string result = string.Empty;   // 결과값
-            string xmlResult = string.Empty; 
+            string xmlResult = string.Empty;
 
             // api 실행할 객체
             WebRequest request = null;
@@ -288,7 +284,7 @@ namespace FestivalInfo
         private async void BtnFav_Click(object sender, RoutedEventArgs e)
         {
             this.DataContext = null;
-            TxtFestName.Text = string.Empty;
+            //TxtFestName.Text = string.Empty;
 
             List<FestItem> list = new List<FestItem>();
             try
@@ -365,10 +361,10 @@ namespace FestivalInfo
                 {
                     if (conn.State == ConnectionState.Closed) conn.Open();
 
-                    var query = "DELETE FROM FavFestItem WHERE Id = @Id";
+                    var query = "DELETE FROM FestItem WHERE Id = @Id";
                     var delRes = 0;
 
-                    foreach (FavFestItem item in GrdResult.SelectedItems)
+                    foreach (FestItem item in GrdResult.SelectedItems)
                     {
                         MySqlCommand cmd = new MySqlCommand(query, conn);
                         cmd.Parameters.AddWithValue("@Id", item.Id);
@@ -465,9 +461,20 @@ namespace FestivalInfo
         }
         #endregion
 
-        private void GrdResult_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void GrdResult_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (GrdResult.SelectedItems.Count == 0)
+            {
+                await Commons.ShowMessageAsync("오류", $"선택한 데이터가 없습니다 ♥");
+                return;
+            }
 
+            if (GrdResult.SelectedItem is FestItem)
+            {
+                var item = GrdResult.SelectedItem as FestItem;
+
+                ImgPoster.Source = new BitmapImage(new Uri(item.ReferenceIdentifier, UriKind.RelativeOrAbsolute));
+            }
         }
     }
 

@@ -45,9 +45,9 @@
             </Grid.ColumnDefinitions>
 
             <DataGrid x:Name="GrdResult" 
-                  Style="{StaticResource MahApps.Styles.DataGrid.Azure}"
+                  Style="{StaticResource MahApps.Styles.DataGrid.Azure}" IsReadOnly="True"
                   ItemsSource="{Binding}" Background="#99D8DCE0" BorderBrush="{x:Null}" Margin="20,57,20,0" Grid.RowSpan="2" 
-                      MouseLeftButtonDown="GrdResult_MouseLeftButtonDown" >
+                      MouseDoubleClick="GrdResult_MouseDoubleClick" >
 
                 <!-- 헤더 -->
                 <DataGrid.Columns>
@@ -65,7 +65,8 @@
             <!-- 버튼 영역 -->
             <!--즐찾 추가-->
             <StackPanel Background="#1248"
-                  Orientation="Horizontal" Margin="20,10,20,0" Height="47" VerticalAlignment="Top" >
+                  Orientation="Horizontal" Margin="20,10,20,0" Height="47" 
+                        HorizontalAlignment="Stretch" VerticalAlignment="Top" >
 
                 <Button x:Name="BtnAddFav" Content="추가" BorderBrush="#FFFBE9C7"
                     Margin="10,6,10,6" FontSize="12" FontFamily="한컴 말랑말랑"
@@ -117,20 +118,26 @@
                 </Button>
 
                 <!-- 조회 -->
-                <Button x:Name="BtnReqRealTime" Content="조회" Height="35" BorderBrush="#FFDBE3FF"
-                    Margin="10,6,10,6" FontSize="12" FontFamily="한컴 말랑말랑"
-                    Style="{StaticResource MahApps.Styles.Button.Square}"
-                    Click="BtnReqRealTime_Click" Background="#CCFFFFFF">
+                <Button Grid.Column="2" x:Name="BtnSearchFest"
+                    FontSize="14" 
+                    Margin="10,6,10,6" Height="35" Width="35"
+                    Style="{StaticResource MahApps.Styles.Button.Circle}" Click="BtnSearchFest_Click" Background="#B2FFFFFF"
+                    >
+                    <Button.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#CCC1BABA"/>
+                            <GradientStop Color="#FF403E3E" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.BorderBrush>
                     <Button.ContentTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <iconPacks:PackIconFontAwesome Kind="EllipsisVSolid" VerticalAlignment="Center"
-                                                                 Margin="8,3,0,3" />
-                                <TextBlock Text="{Binding}"  Margin="0,3,8,5" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <iconPacks:PackIconFontAwesome Kind="SearchSolid" Margin="10, 0, 0, 0"
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding}" Margin="5" />
                             </StackPanel>
                         </DataTemplate>
                     </Button.ContentTemplate>
-
                 </Button>
             </StackPanel>
 
@@ -164,46 +171,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- InputMethod... 한글입력을 위한 부분 -->
-            <TextBox Grid.Column="1" x:Name="TxtFestName"
-                     FontFamily="한컴 말랑말랑" FontSize="11" Margin="79,18,70,14" Height="38"
-                     mah:TextBoxHelper.Watermark="Find your Fest"
-                     mah:TextBoxHelper.UseFloatingWatermark="True"
-                     mah:TextBoxHelper.ClearTextButton="True"
-                     InputMethod.PreferredImeState="On"
-                     InputMethod.PreferredImeConversionMode="Native"
-                     KeyDown="TxtFestName_KeyDown" Background="#CCFFFFFF" CaretBrush="Black" Grid.ColumnSpan="2" >
-                <TextBox.BorderBrush>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-
-                        <GradientStop Color="White"/>
-                        <GradientStop Color="#FF686868"/>
-                        <GradientStop Color="#FF585858"/>
-                        <GradientStop Color="#FF656565"/>
-                        <GradientStop Color="#FFC7C7C7"/>
-                        <GradientStop Offset="1" Color="#FF353535"/>
-                    </LinearGradientBrush>
-                </TextBox.BorderBrush>
-            </TextBox>
-            <Button Grid.Column="2" x:Name="BtnSearchFest"
-                    FontSize="14" Margin="0, 15, 15, 10" Height="35" Width="35"
-                    Style="{StaticResource MahApps.Styles.Button.Circle}" Click="BtnSearchFest_Click" Background="#B2FFFFFF"
-                    >
-                <Button.BorderBrush>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#CCC1BABA"/>
-                        <GradientStop Color="#FF403E3E" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.BorderBrush>
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <iconPacks:PackIconFontAwesome Kind="SearchSolid" Margin="10, 0, 0, 0"
-                                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Text="{Binding}" Margin="5" />
-                        </StackPanel>
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
+            
         </Grid>
 
     </Grid>

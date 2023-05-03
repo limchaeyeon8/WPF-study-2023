@@ -111,3 +111,12 @@ BikeShopApp WIP
         - 데이터포털 OpenAPI
         - 네이버, 카카오 OpenAPI
         - 기타 OpenAPI
+
+## 10일차
+- WPF 응용 미니 프로젝트
+    - 축제 검색앱
+        - MahApps.Metro
+#### [OpenAPI](https://www.culture.go.kr/data/openapi/openapiView.do?id=428&category=A&keyword=%EC%B6%95%EC%A0%9C&searchField=all&gubun=A#/default/%EC%9A%94%EC%B2%AD%EB%A9%94%EC%8B%9C%EC%A7%80_Get) 
+        - └ 출처: 문화공공데이터광장 - KOPIS 축제목록
+        - - DB 데이터 바인딩 (MySQL)
+<img src="https://github.com/limchaeyeon8/WPF-study-2023/blob/main/OpenApiPopol/PersonalWpfApp/FestInfoSearch.gif?raw=true" width="700" />
