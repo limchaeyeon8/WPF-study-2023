@@ -116,7 +116,8 @@ BikeShopApp WIP
 - WPF 응용 미니 프로젝트
     - 축제 검색앱
         - MahApps.Metro
+        - DB 데이터 바인딩 (MySQL)
 #### [OpenAPI](https://www.culture.go.kr/data/openapi/openapiView.do?id=428&category=A&keyword=%EC%B6%95%EC%A0%9C&searchField=all&gubun=A#/default/%EC%9A%94%EC%B2%AD%EB%A9%94%EC%8B%9C%EC%A7%80_Get) 
-        - └ 출처: 문화공공데이터광장 - KOPIS 축제목록
-        - - DB 데이터 바인딩 (MySQL)
+        └ 출처: 문화공공데이터광장 - KOPIS 축제목록
+       
 <img src="https://github.com/limchaeyeon8/WPF-study-2023/blob/main/OpenApiPopol/PersonalWpfApp/FestInfoSearch.gif?raw=true" width="700" />
